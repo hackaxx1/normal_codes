@@ -1,0 +1,22 @@
+.scrollable-container {
+    height: 300px;
+    overflow-y: scroll;
+    border: 2px solid #4CAF50;  /* Kaydırılabilir alanın kenarlık rengi */
+    padding: 10px;
+    background-color: #d9e6f2;  /* Arka plan rengini açık mavi yapalım */
+}
+
+.item {
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid #888;  /* Her öğenin kenarlık rengi */
+    border-radius: 5px;
+    background-color: #ffffff;  /* Kutuların arka plan rengi */
+    color: #333333;  /* Yazı rengi */
+    font-size: 16px;  /* Yazı boyutu */
+    font-family: 'Arial', sans-serif;  /* Yazı fontu */
+}
+
+.item:hover {
+    background-color: #e0e0e0;  /* Üzerine gelince kutu rengi değişir */
+}
