@@ -5,7 +5,6 @@ indb_school = "İTÜ"
 indb_class = "9. sınıf"
 indb_skills = ["Python", "NLP", "Veri Bilimi"]
 indb_experience = "1 Kere teknofeste katıldım"
-indb_password = "1234"
 
 new_name = st.text_input("Ad-Soyad", value=indb_username)
 
