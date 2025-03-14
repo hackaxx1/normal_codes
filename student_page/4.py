@@ -14,7 +14,7 @@ data = [
     {"ad": "Proje 10", "arama_baslangic_tarihi": "2024-03-18", "alan": "Robotik", "yarışma": "Uluslararası Robot Yarışması", "aranan_elemanlar": ["Mekatronik Mühendisi", "Yapay Zeka Geliştiricisi"], "image": "https://placehold.co/400x400"}
 ]
 
-st.title("Proje Arama ve Filtreleme")
+st.title("Proje Vitrini")
 
 # Filtreleme seçenekleri
 alanlar = list(set(item["alan"] for item in data))
