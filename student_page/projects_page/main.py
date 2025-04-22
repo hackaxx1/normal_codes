@@ -25,12 +25,15 @@ with col1:
 
 with col2:
     with st.container(border=True):
-        if st.button("Görevlerim", key="tasks"):
+        if st.button("     Görevlerim      ", key="tasks"):
             st.session_state.active_page = "my_tasks"
             st.rerun()  # Sayfayı yeniden yükle
         if st.button("İş yapım aşaması", key="work_in_progress"):
             st.session_state.active_page = "work_in_progress"
             st.rerun()
-        if st.button("Ayarlar", key="settings"):
+        if st.button("  Görev   işlemleri ", key="task_operations"):
+            st.session_state.active_page = "task_operations"
+            st.rerun()
+        if st.button("          Ayarlar           ", key="settings"):
             st.session_state.active_page = "settings"
             st.rerun()
