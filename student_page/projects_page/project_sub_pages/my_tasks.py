@@ -1,8 +1,4 @@
 import streamlit as st
-import streamlit_modal as modal
-from datetime import datetime, timedelta
-
-# SON TESLİM TARİHİ GEÇEN GÖREVLERİ SALLADIM GERÇEK DEĞİLLER
 
 data = [
     {
@@ -127,42 +123,51 @@ data = [
     },
 ]
 
-
-# Örnek olması için 12 görev oluşturmak ister misin? İstersen ben otomatik olarak kalanları da üretebilirim.
-
-
 def handle_task_operations(task):
-    # Butona basıldığında yapılacak işlemler (şimdilik boş)
-    pass
+    st.session_state.active_page = "task_operations"
+    st.session_state.clicked_button_task = task
+
+def handle_complete_task(task):
+    st.session_state.active_page = "complete_task"      
+    st.session_state.clicked_button_task = task
 
 def load_more():
     st.session_state.visible_count += 6
 
 def render():
-    # Session state başlat
+    # State kontrolü
     if "visible_count" not in st.session_state: 
         st.session_state.visible_count = 6
     if "show_past" not in st.session_state:
         st.session_state.show_past = False
+    if "previous_show_past" not in st.session_state:
+        st.session_state.previous_show_past = st.session_state.show_past
+    if "clicked_button_task" not in st.session_state:
+        st.session_state.clicked_button_task = None
 
     st.subheader("Görevlerim")
     st.write("Bu sayfada görevler görüntülenir.")
 
-    # Filtre kontrolü
+    # Filtre checkbox
     st.checkbox("Son teslim tarihi geçmiş görevleri göster", key="show_past")
+
+    # Filtre değişmişse visible_count sıfırla
+    filtre_degisti = st.session_state.show_past != st.session_state.previous_show_past
+    if filtre_degisti:
+        st.session_state.visible_count = 6
+        st.session_state.previous_show_past = st.session_state.show_past
 
     # Görevleri filtrele
     filtered_data = []
     for task in data:
-        teslim_durumu = task.get("teslim durumu", "Edilmedi")  # default değeri Geçmedi
-
+        teslim_durumu = task.get("teslim durumu", "Edilmedi")
         if st.session_state.show_past or teslim_durumu != "Edildi":
             filtered_data.append(task)
 
-    # Gösterilecek sayıyı kontrol et
+    # Gösterilecek görevler
     tasks_to_display = filtered_data[:st.session_state.visible_count]
 
-    # 3 sütunlu görünüm
+    # 3 sütunlu görev kartları
     cols = st.columns(3)
     for idx, task in enumerate(tasks_to_display):
         with cols[idx % 3]:
@@ -174,10 +179,10 @@ def render():
                         if key not in ["ad", "atayan id"]:
                             st.markdown(f"**{key.capitalize()}:** {value}")
 
-                # Teslim durumu "Geçti" ise buton pasif
                 btn_disabled = task.get("teslim durumu", "Edilmedi") == "Edildi"
                 st.button("İşlemler", key=f"ops_{idx}", disabled=btn_disabled, on_click=handle_task_operations, args=(task,))
+                st.button("Görevi tamamla", key=f"ops_{idx}2", disabled=btn_disabled, on_click=handle_complete_task, args=(task,))
 
-    # Daha fazla göster
+    # Daha fazla göster butonu – sadece daha fazla veri varsa
     if st.session_state.visible_count < len(filtered_data):
         st.button("Daha fazla göster", on_click=load_more)

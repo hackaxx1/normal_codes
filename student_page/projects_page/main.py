@@ -34,6 +34,9 @@ with col2:
         if st.button("  Görev   işlemleri ", key="task_operations"):
             st.session_state.active_page = "task_operations"
             st.rerun()
+        if st.button("Görev tamamla", key="complete_task"):
+            st.session_state.active_page = "complete_task"
+            st.rerun()
         if st.button("          Ayarlar           ", key="settings"):
             st.session_state.active_page = "settings"
             st.rerun()
